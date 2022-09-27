@@ -1,0 +1,22 @@
+{
+  "name": "myvideomaker",
+  "version": "1.0.0",
+  "description": "this make cut videos from podcasts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aBaldoqui/myVideoMaker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aBaldoqui/myVideoMaker/issues"
+  },
+  "homepage": "https://github.com/aBaldoqui/myVideoMaker#readme",
+  "dependencies": {
+    "ytdl-core": "^4.11.2"
+  }
+}
