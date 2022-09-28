@@ -6,9 +6,10 @@ const ytdl = require('ytdl-core');
 async function downloader(url) {
     const fileName = './tmp/video.mp4'
     try {
-        ytdl(url)
+        const download = ytdl(url)
             .pipe(fs.createWriteStream(fileName));
-        return fileName
+        download.on("finish",()=>{return fileName})
+            
 
     } catch (err) {
         console.log(err)
