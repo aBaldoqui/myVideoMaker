@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/aBaldoqui/myVideoMaker#readme",
   "dependencies": {
+    "@google-cloud/speech": "^5.0.3",
     "readline-sync": "^1.4.10",
     "ytdl-core": "^4.11.2"
   }

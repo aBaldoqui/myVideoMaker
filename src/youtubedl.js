@@ -4,9 +4,12 @@ const ytdl = require('ytdl-core');
 // TypeScript: import * as ytdl from 'ytdl-core'; with --allowSyntheticDefaultImports
 // TypeScript: import ytdl = require('ytdl-core'); with neither of the above
 async function downloader(url) {
+    const fileName = './tmp/video.mp4'
     try {
         ytdl(url)
-            .pipe(fs.createWriteStream('./tmp/video.mp4'));
+            .pipe(fs.createWriteStream(fileName));
+        return fileName
+
     } catch (err) {
         console.log(err)
     }
