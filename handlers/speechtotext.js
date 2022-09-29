@@ -7,7 +7,7 @@ async function speechconverter(gcsUri, filename) {
     const client = new speech.SpeechClient({
         keyFilename: './keys/videomaker-363718-5493f7068694.json'
     });
-    console.log(gcsUri)
+    //console.log(gcsUri)
     const audio = {
         uri: gcsUri
     }
@@ -33,9 +33,8 @@ async function speechconverter(gcsUri, filename) {
 
     try {
         const [operation] = await client.longRunningRecognize(request);
-        const [response] = await operation.promise();
 
-
+     
         // const contentString = JSON.stringify(response.results)
         // return fs.writeFileSync(`${outputfile}${filename}stt.json`, { 'result': contentString })
 
@@ -48,7 +47,7 @@ async function speechconverter(gcsUri, filename) {
 
 
     } catch (err) {
-        console.log(err)
+       console.log(err)
     }
 
 
