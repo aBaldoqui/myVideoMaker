@@ -1,35 +1,50 @@
 const speech = require('@google-cloud/speech');
 const fs = require('fs');
 
-async function speechconverter(filename) {
-    const client = new speech.SpeechClient();
+const outputfile = './tmp/'
 
-    const file = fs.readFileSync(filename)
-    const audioBytes = file.toString('base64')
+async function speechconverter(gcsUri, filename) {
+    const client = new speech.SpeechClient({
+        keyFilename: './keys/videomaker-363718-5493f7068694.json'
+    });
+    console.log(gcsUri)
     const audio = {
-        content: audioBytes
+        uri: gcsUri
     }
 
     const config = {
         encoding: 'WEBM_OPUS',
         sampleRateHertz: 48000,
-        languageCode: 'en-US',
+        languageCode: 'pt-BR',
         audioChannelCount: 2,
         enableSeparateRecognitionPerChannel: true,
         LongRunningRecognize: true
     }
+    const outputConfig = {
+        "gcsUri": `gs://audios-videomaker/${filename.replace('.mp3', '')}.json`
+    }
 
     const request = {
         audio: audio,
-        config: config
+        config: config,
+        outputConfig:outputConfig
     }
+
+
     try {
-        const [operation] = await client.longRunningRecognize(request)
-        const [response] = await operation.promise()
-        const transcription = response.results
-            .map(result => result.alternatives[0].transcript)
-            .join('\n');
-        console.log(`Transcription: ${transcription}`);
+        const [operation] = await client.longRunningRecognize(request);
+        const [response] = await operation.promise();
+
+
+        // const contentString = JSON.stringify(response.results)
+        // return fs.writeFileSync(`${outputfile}${filename}stt.json`, { 'result': contentString })
+
+
+        // const transcription = response.results
+        //     .map(result => result.alternatives[0].transcript)
+        //     .join('\n');
+
+        //console.log(`Transcription: ${transcription}`);
 
 
     } catch (err) {

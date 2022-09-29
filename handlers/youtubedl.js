@@ -14,7 +14,7 @@ async function downloader(url) {
             .pipe(fs.createWriteStream(filepath));
 
         return new Promise((resolve) => {
-            download.on("finish", () => { resolve({filepath}) })
+            download.on("finish", () => { resolve({filepath, filename}) })
         })
 
     } catch (err) {

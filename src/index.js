@@ -5,9 +5,9 @@ const url = readlineSync.question('url do vídeo');
 
 async function foo() {
     // const fileName = './tmp/video.mp3'
-    const {filepath} = await youtubedl(url)
-    await gcs(filepath)
-    // console.log(fileName)
-    //await speech(fileName)
+    const {filepath, filename} = await youtubedl(url)
+    const gcsid = await gcs.uploadgcs(filepath)
+    const speechFileName = await speechtotext(gcsid, filename)
+    const speechobj = await gcs.downloadgcs(speechFileName)
 }
 foo()
