@@ -4,7 +4,7 @@
   "description": "this make cut videos from podcasts",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "GOOGLE_APPLICATION_CREDENTIALS=~/Downloads/videomaker-363718-304a9b73a437.json node ./src/index.js",
     "dev": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +20,7 @@
   "homepage": "https://github.com/aBaldoqui/myVideoMaker#readme",
   "dependencies": {
     "@google-cloud/speech": "^5.0.3",
+    "@google-cloud/storage": "^6.5.2",
     "readline-sync": "^1.4.10",
     "ytdl-core": "^4.11.2"
   }
