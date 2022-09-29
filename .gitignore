@@ -103,5 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-./keys/*
-./tmp/*
+/keys/*
+/tmp/*
+keys/videomaker-363718-5493f7068694.json
