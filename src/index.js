@@ -9,5 +9,6 @@ async function foo() {
     const gcsid = await gcs.uploadgcs(filepath)
     const speechFileName = await speechtotext(gcsid, filename)
     const speechobj = await gcs.downloadgcs(speechFileName)
+    
 }
 foo()
