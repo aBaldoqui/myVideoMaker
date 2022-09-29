@@ -1,11 +1,12 @@
 const readlineSync = require('readline-sync');
-const downloader = require("../handlers/youtubedl")
-const speech = require("../handlers/speechtotext")
+const {gcs,speechtotext,youtubedl} = require('../handlers/index')
+
 const url = readlineSync.question('url do vídeo');
 
 async function foo() {
     // const fileName = './tmp/video.mp3'
-    const fileName = await downloader(url)
+    const {filepath} = await youtubedl(url)
+    await gcs(filepath)
     // console.log(fileName)
     //await speech(fileName)
 }
