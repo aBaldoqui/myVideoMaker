@@ -37,9 +37,10 @@ async function speechconverter(gcsUri, filename) {
     try {
 
         return new Promise(async (resolve) => {
-            const [operation] = await client.longRunningRecognize(request)
-            //console.log('operation', await operation.promise())
-           operation.promise();
+            const [operation] = await client.longRunningRecognize(request).then(console.log('foia'))
+            operation.promise().then((a) => {
+                resolve(outputFileName)
+            });
         });
 
         // const contentString = JSON.stringify(response.results)

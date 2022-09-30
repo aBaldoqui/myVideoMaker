@@ -8,6 +8,6 @@ async function foo() {
     const { filepath, filename } = await youtubedl(url)
     const gcsid = await gcs.uploadgcs(filepath)
     const speechfilename = await speechtotext(gcsid, filename)
-    //const { speecharray } = await gcs.downloadgcs(speechfilename)
+    const { speecharray } = await gcs.downloadJsonGcs(speechfilename)
 }
 foo()

@@ -15,11 +15,12 @@ async function uploadgcs(filepath) {
     })
 }
 
-async function downloadgcs(filename) {
+async function downloadJsonGcs(filename) {
     console.log(filename)
     const obj = await storage.bucket(bucketName).file(filename).download()
-    console.log(obj.toString())
-    return obj.toString()
+    const jsonobj = JSON.parse(obj)
+    console.log(jsonobj)
+    return jsonobj
 }
 
-module.exports = { uploadgcs, downloadgcs }
+module.exports = { uploadgcs, downloadJsonGcs }
