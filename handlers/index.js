@@ -1,12 +1,12 @@
 const speechtotext = require('./speechtotext');
 const youtubedl = require('./youtubedl');
 const gcs = require('./gcs')
-const watson = require('./watson')
+const langunderstanding = require('./langunderstanding')
 
 
 module.exports = {
     gcs,
     speechtotext,
     youtubedl,
-    watson
+    langunderstanding
 }

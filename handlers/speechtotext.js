@@ -17,8 +17,9 @@ async function speechconverter(gcsUri, filename) {
         sampleRateHertz: 48000,
         languageCode: 'pt-BR',
         audioChannelCount: 2,
-        enableSeparateRecognitionPerChannel: true,
-        LongRunningRecognize: true
+        enableSeparateRecognitionPerChannel: false,
+        LongRunningRecognize: true,
+        model : 'latest_long'
     }
 
     const outputFileName = filename.replace('.mp3', '.json')
