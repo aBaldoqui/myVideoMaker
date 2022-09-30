@@ -20,21 +20,28 @@ async function speechconverter(gcsUri, filename) {
         enableSeparateRecognitionPerChannel: true,
         LongRunningRecognize: true
     }
+
+    const outputFileName = filename.replace('.mp3', '.json')
+
     const outputConfig = {
-        "gcsUri": `gs://audios-videomaker/${filename.replace('.mp3', '')}.json`
+        "gcsUri": `gs://audios-videomaker/${outputFileName}`
     }
 
     const request = {
         audio: audio,
         config: config,
-        outputConfig:outputConfig
+        outputConfig: outputConfig
     }
 
 
     try {
-        const [operation] = await client.longRunningRecognize(request);
 
-     
+        return new Promise(async (resolve) => {
+            const [operation] = await client.longRunningRecognize(request)
+            //console.log('operation', await operation.promise())
+           operation.promise();
+        });
+
         // const contentString = JSON.stringify(response.results)
         // return fs.writeFileSync(`${outputfile}${filename}stt.json`, { 'result': contentString })
 
@@ -47,7 +54,7 @@ async function speechconverter(gcsUri, filename) {
 
 
     } catch (err) {
-       console.log(err)
+        console.log(err)
     }
 
 

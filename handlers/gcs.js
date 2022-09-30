@@ -17,7 +17,7 @@ async function uploadgcs(filepath) {
 
 async function downloadgcs(filename) {
     console.log(filename)
-    const obj = await storage.bucket(bucketName).file(filename.replace('.mp3', '.json')).download()
+    const obj = await storage.bucket(bucketName).file(filename).download()
     console.log(obj.toString())
     return obj.toString()
 }
