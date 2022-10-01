@@ -1,5 +1,5 @@
 const readlineSync = require('readline-sync');
-const { gcs, speechtotext, youtubedl, langunderstanding} = require('../handlers/index')
+const { gcs, speechtotext, youtubedl, langunderstanding, imagesearch} = require('../handlers/index')
 
 const url = readlineSync.question('url do vídeo');
 
@@ -14,6 +14,8 @@ async function foo() {
     console.log('4')
     const speecharray = await gcs.downloadJsonGcs(speechfilename)
     console.log('5')
-    const language = await langunderstanding(speecharray)
+    const arrayOfKeyWords = await langunderstanding(speecharray)
+    console.log('6')
+    await imagesearch(arrayOfKeyWords)
 }
 foo()
