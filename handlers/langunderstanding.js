@@ -37,18 +37,20 @@ async function getKeyWords(arrayOfTxt) {
             const result = entitiesArray[index]
             index++
 
-            const foo = result.map((item) => {
-                console.log(item.salience)
+            const keywordstofilter = result.map((item) => {
+                // console.log(item.salience)
                 if (item.type != 'NUMBER' && item.salience > 0.01) return { name: item.name, type: item.type }
 
 
             });
 
+            const keywords = keywordstofilter.filter(item => item != null)
+
             return {
                 speech: inputSpeech,
                 images: [],
                 meta: item.resultEndTime,
-                keywords: foo
+                keywords: keywords
             }
 
         })
