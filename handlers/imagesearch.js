@@ -5,23 +5,26 @@ const state = require('./state')
 
 
 let searchterms = []
+let index = 0
 
 function findImages(arrayOfPeriods) {
-    let index = 0
-    arrayOfPeriods.forEach((periodObjects) => {
-        Promise.all(periodObjects.keywords.map(async (word) => await search(word.name))).then((arrOfImages) => {
-            arrayOfPeriods[index].images = arrOfImages
-            index++
-            if (index == arrayOfPeriods.length) {
-                state.save(arrayOfPeriods)
-            }
-        }) //TODO, search devolve imagens guarde no objeto do .json
+    arrayOfPeriods.forEach(period => {
+        index++
+        Promise.all(period.keywords.map(async (word) => {
+            return await search(word.name, index)
+        })).then(arr => {
 
-    })
-
+            const linkOfImages = arr.map((obj)=>{
+                if(obj) return obj.result
+            })
+            arrayOfPeriods[arr[0].ind-1].images = linkOfImages
+            
+            state.save(arrayOfPeriods)
+        })
+    });
 }
 
-async function search(keyword) {
+async function search(keyword, ind) {
     const response = await customSearch.cse.list({
         auth: googleSearchCredentials,
         cx: '37bbf366cb6164f2a',
@@ -31,17 +34,16 @@ async function search(keyword) {
         safe: "active"
     })
 
-    if(!response.data.items){
-        console.log(keyword)
+    if (!response.data.items) {
+        //console.log(keyword)
         return null
     }
+
     const imagesUrl = response.data.items.map((item) => {
-        return `${keyword}, ${item.link}`
+        return `${ind} ${keyword}, ${item.link}`
     })
 
-    return imagesUrl
-
-
+    return ({ result: imagesUrl, ind: ind })
 }
 
 module.exports = findImages

@@ -23,9 +23,7 @@ async function getKeyWords(arrayOfTxt) {
                 return item[0].entities
             })
             coontinuistaResolver(arrayOfEntities, resolve)
-
         })
-
     })
 
 
@@ -44,7 +42,11 @@ async function getKeyWords(arrayOfTxt) {
 
             });
 
-            const keywords = keywordstofilter.filter(item => item != null)
+            let keywords = keywordstofilter.filter(item => item != null)
+
+            keywords = keywords.filter(function (a) {
+                return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+            }, Object.create(null))
 
             return {
                 speech: inputSpeech,
