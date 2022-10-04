@@ -40,7 +40,7 @@ async function search(keyword, ind) {
     }
 
     const imagesUrl = response.data.items.map((item) => {
-        return `${ind} ${keyword}, ${item.link}`
+        return item.link
     })
 
     return ({ result: imagesUrl, ind: ind })
