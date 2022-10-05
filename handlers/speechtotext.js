@@ -19,7 +19,7 @@ async function speechconverter(gcsUri, filename) {
         audioChannelCount: 2,
         enableSeparateRecognitionPerChannel: false,
         LongRunningRecognize: true,
-        model : 'latest_long'
+        model: 'latest_long'
     }
 
     const outputFileName = filename.replace('.mp3', '.json')
@@ -36,25 +36,12 @@ async function speechconverter(gcsUri, filename) {
 
 
     try {
-
         return new Promise(async (resolve) => {
-            const [operation] = await client.longRunningRecognize(request).then(console.log('foia'))
+            const [operation] = await client.longRunningRecognize(request)
             operation.promise().then((a) => {
                 resolve(outputFileName)
             });
         });
-
-        // const contentString = JSON.stringify(response.results)
-        // return fs.writeFileSync(`${outputfile}${filename}stt.json`, { 'result': contentString })
-
-
-        // const transcription = response.results
-        //     .map(result => result.alternatives[0].transcript)
-        //     .join('\n');
-
-        //console.log(`Transcription: ${transcription}`);
-
-
     } catch (err) {
         console.log(err)
     }

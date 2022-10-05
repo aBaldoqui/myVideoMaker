@@ -3,7 +3,7 @@ const state = require('./state')
 const language = new Language.LanguageServiceClient()
 
 
-async function getKeyWords(arrayOfTxt) {
+async function getKeyWords(arrayOfTxt, vidName) {
 
     let arrayOfEntities = []
     return new Promise(resolve => {
@@ -49,6 +49,7 @@ async function getKeyWords(arrayOfTxt) {
             }, Object.create(null))
 
             return {
+                vidName: vidName.replace('.mp4','.json'),
                 speech: inputSpeech,
                 images: [],
                 meta: item.resultEndTime,

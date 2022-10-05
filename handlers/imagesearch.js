@@ -17,7 +17,7 @@ function findImages(arrayOfPeriods) {
             const linkOfImages = arr.map((obj)=>{
                 if(obj) return obj.result
             })
-            arrayOfPeriods[arr[0].ind-1].images = linkOfImages
+            if(arr[0]) arrayOfPeriods[arr[0].ind-1].images = linkOfImages
             
             state.save(arrayOfPeriods)
         })
