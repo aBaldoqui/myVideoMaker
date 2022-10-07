@@ -105,4 +105,5 @@ dist
 
 # keys/videomaker-363718-5493f7068694.json
 *.mp3
-*.json
+/tmp/*.json
+/keys/*.json
