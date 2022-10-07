@@ -31,7 +31,8 @@ async function uploadgcs(filepath) {
 }
 
 async function downloadJsonGcs(filename) {
-    // console.log(filename)
+    //filename must be like: como___uma_casa_de_sw1ng___cortes_podcast.json
+    console.log(filename)
     const obj = await storage.bucket(bucketName).file(filename).download()
     const jsonobj = await JSON.parse(obj).results
     return jsonobj
