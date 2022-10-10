@@ -7,7 +7,8 @@ const state = require('./state')
 let searchterms = []
 let index = 0
 
-function findImages(arrayOfPeriods) {
+function findImages(contentObj) {
+    arrayOfPeriods = contentObj.continuista;
     arrayOfPeriods.forEach(period => {
         index++
         Promise.all(period.keywords.map(async (word) => {
@@ -19,7 +20,7 @@ function findImages(arrayOfPeriods) {
             })
             if(arr[0]) arrayOfPeriods[arr[0].ind-1].images = linkOfImages
             
-            state.save(arrayOfPeriods)
+            state.save(contentObj)
         })
     });
 }

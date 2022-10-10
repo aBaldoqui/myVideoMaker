@@ -3,7 +3,7 @@ const state = require('./state')
 const language = new Language.LanguageServiceClient()
 
 
-async function getKeyWords(arrayOfTxt, vidName) {
+async function getKeyWords(arrayOfTxt, vidName, url) {
 
     let arrayOfEntities = []
     return new Promise(resolve => {
@@ -30,7 +30,7 @@ async function getKeyWords(arrayOfTxt, vidName) {
     function coontinuistaResolver(entitiesArray, resolve) {
         let index = 0
 
-        const continuísta = arrayOfTxt.map((item) => {
+        const continuista = arrayOfTxt.map((item) => {
             const inputSpeech = item.alternatives[0].transcript
             const result = entitiesArray[index]
             index++
@@ -49,7 +49,6 @@ async function getKeyWords(arrayOfTxt, vidName) {
             }, Object.create(null))
 
             return {
-                vidName: vidName.replace('.mp4','.json'),
                 speech: inputSpeech,
                 images: [],
                 meta: item.resultEndTime,
@@ -57,8 +56,13 @@ async function getKeyWords(arrayOfTxt, vidName) {
             }
 
         })
-        state.save(continuísta)
-        resolve(continuísta)
+        const resolveObj = {
+            vidUrl: url,
+            vidName: vidName.replace('.mp4', '.json'),
+            continuista: continuista
+        }
+        state.save(resolveObj)
+        resolve(resolveObj)
     }
 }
 
