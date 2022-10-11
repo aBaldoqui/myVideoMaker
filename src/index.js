@@ -7,9 +7,11 @@ async function index() {
     const { filepath, filename } = await youtubedl(url)
     const gcsid = await gcs.uploadgcs(filepath)
     const speechfilename = await speechtotext(gcsid, filename)
+    gcs.deleteGcs(filename)
     const speecharray = await gcs.downloadJsonGcs(speechfilename)
     const arrayOfKeyWords = await langunderstanding(speecharray, speechfilename, url)
-    await imagesearch(arrayOfKeyWords)
+    const imageFile = await imagesearch(arrayOfKeyWords)
+    gcs.uploadgcs(imageFile)
 }
 
 index()

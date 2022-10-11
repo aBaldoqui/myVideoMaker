@@ -9,20 +9,24 @@ let index = 0
 
 function findImages(contentObj) {
     arrayOfPeriods = contentObj.continuista;
-    arrayOfPeriods.forEach(period => {
-        index++
-        Promise.all(period.keywords.map(async (word) => {
-            return await search(word.name, index)
-        })).then(arr => {
-
-            const linkOfImages = arr.map((obj)=>{
-                if(obj) return obj.result
+    return new Promise((res)=>{
+        arrayOfPeriods.forEach(period => {
+            index++
+            Promise.all(period.keywords.map(async (word) => {
+                return await search(word.name, index)
+            })).then(arr => {
+    
+                const linkOfImages = arr.map((obj)=>{
+                    if(obj) return obj.result
+                })
+                if(arr[0]) arrayOfPeriods[arr[0].ind-1].images = linkOfImages
+                //console.log(contentObj)
+                state.save(contentObj)
+                res('./tmp/content.json')
             })
-            if(arr[0]) arrayOfPeriods[arr[0].ind-1].images = linkOfImages
-            
-            state.save(contentObj)
-        })
-    });
+        });
+    })
+    
 }
 
 async function search(keyword, ind) {

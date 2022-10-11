@@ -61,7 +61,6 @@ async function getKeyWords(arrayOfTxt, vidName, url) {
             vidName: vidName.replace('.mp4', '.json'),
             continuista: continuista
         }
-        state.save(resolveObj)
         resolve(resolveObj)
     }
 }

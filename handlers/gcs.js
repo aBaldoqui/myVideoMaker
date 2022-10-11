@@ -1,5 +1,6 @@
 const { Storage } = require('@google-cloud/storage')
-const fs = require('fs')
+const fs = require('fs');
+const { file } = require('googleapis/build/src/apis/file');
 const bucketName = "audios-videomaker";
 
 const storage = new Storage({
@@ -38,4 +39,10 @@ async function downloadJsonGcs(filename) {
     return jsonobj
 }
 
-module.exports = { uploadgcs, downloadJsonGcs }
+
+async function deleteGcs(filename){
+    const obj = await storage.bucket(bucketName).file(filename).delete()
+    return obj
+}
+
+module.exports = { uploadgcs, downloadJsonGcs, deleteGcs }
