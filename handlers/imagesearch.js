@@ -47,7 +47,7 @@ async function search(keyword, ind) {
     const response = await customSearch.cse.list({
         auth: googleSearchCredentials,
         cx: '37bbf366cb6164f2a',
-        q: `${keyword} meme`,
+        q: `${keyword}`,
         searchType: 'image',
         num: 1,
         safe: "active"
