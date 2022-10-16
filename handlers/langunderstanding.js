@@ -37,7 +37,7 @@ async function getKeyWords(arrayOfTxt, vidName, url) {
 
             const keywordstofilter = result.map((item) => {
                 // console.log(item.salience)
-                if (item.type != 'NUMBER' && item.salience > 0.01) return { name: item.name, type: item.type }
+                if (item.type != 'NUMBER' && item.salience > 0.03) return { name: item.name, type: item.type }
 
 
             });
@@ -58,10 +58,11 @@ async function getKeyWords(arrayOfTxt, vidName, url) {
         })
         const resolveObj = {
             vidUrl: url,
-            vidName: vidName.replace('.mp4', '.json'),
+            vidName: `${vidName.replace('.mp4', '').substr(0, 10)}_${Math.round(Math.random()*16777215).toString(16)}`,
             continuista: continuista
         }
         resolve(resolveObj)
+        
     }
 }
 

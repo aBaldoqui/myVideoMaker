@@ -7,19 +7,6 @@ const storage = new Storage({
     keyFilename: './keys/videomaker-363718-5493f7068694.json'
 });
 
-
-async function exportContentFile() {
-    const filepath = './tmp/content.json'
-    const filed = storage.bucket(bucketName).upload(filepath)
-    return new Promise((resolve) => {
-        filed.then(async (res) => {
-            fs.unlink(filepath, () => {
-                resolve(`gs://${bucketName}/${res[1].name}`)
-            })
-        })
-    })
-}
-
 async function uploadgcs(filepath) {
     const filed = storage.bucket(bucketName).upload(filepath)
     return new Promise((resolve) => {
@@ -33,7 +20,6 @@ async function uploadgcs(filepath) {
 
 async function downloadJsonGcs(filename) {
     //filename must be like: como___uma_casa_de_sw1ng___cortes_podcast.json
-    console.log(filename)
     const obj = await storage.bucket(bucketName).file(filename).download()
     const jsonobj = await JSON.parse(obj).results
     return jsonobj
@@ -41,8 +27,10 @@ async function downloadJsonGcs(filename) {
 
 
 async function deleteGcs(filename){
+    console.log(filename)
     const obj = await storage.bucket(bucketName).file(filename).delete()
-    return obj
+    const obj2 = await storage.bucket(bucketName).file(filename.replace('.mp3', '.json')).delete()
+    return {obj, obj2}
 }
 
 module.exports = { uploadgcs, downloadJsonGcs, deleteGcs }

@@ -1,26 +1,15 @@
 const fs = require('fs')
-const contentFilePath = './tmp/content.json'
-const scriptFilePath = './content/after-effects-script.js'
+const contentFilePath = './tmp/'
 
-function save(content) {
+function save(content, videoname) {
+
   const contentString = JSON.stringify(content)
-  return fs.writeFileSync(contentFilePath, contentString)
-}
+  if(!videoname) videoname = content.json
+  console.log(videoname)
+  return fs.writeFileSync(`${contentFilePath}${videoname}.json`, contentString)
 
-function saveScript(content) {
-  const contentString = JSON.stringify(content)
-  const scriptString = `var content = ${contentString}`
-  return fs.writeFileSync(scriptFilePath, scriptString)
-}
-
-function load() {
-  const fileBuffer = fs.readFileSync(contentFilePath, 'utf-8')
-  const contentJson = JSON.parse(fileBuffer)
-  return contentJson
 }
 
 module.exports = {
   save,
-  saveScript,
-  load
 }
