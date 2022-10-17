@@ -5,7 +5,7 @@ const outputfile = './tmp/'
 
 async function speechconverter(gcsUri, filename) {
     const client = new speech.SpeechClient({
-        keyFilename: './keys/videomaker-363718-5493f7068694.json'
+        keyFilename: './keys/gcskey.json'
     });
     //console.log(gcsUri)
     const audio = {

@@ -18,7 +18,7 @@ function findImages(contentObj) {
             let lim = 0
             Promise.all(period.keywords.map(async (word) => {
                 lim++
-                if(lim == Math.round(arrayOfPeriods.length/100)) return
+                if (lim >= Math.round(40/ arrayOfPeriods.length)) return
                 return await search(word.name, index)
             })).then(arr => {
                 const linkOfImages = arr.map((obj) => {
@@ -28,7 +28,7 @@ function findImages(contentObj) {
                 state.save(contentObj, contentObj.vidName);
 
                 i++
-                if(arrayOfPeriods.length === i) res(`./tmp/${contentObj.vidName}.json`)
+                if (arrayOfPeriods.length === i) res(`./tmp/${contentObj.vidName}.json`)
             })
         });
     })
@@ -36,18 +36,18 @@ function findImages(contentObj) {
 }
 
 async function search(keyword, ind) {
-    const rand = Math.random()*100
+    const rand = Math.random() * 100
+    
+    if (rand <= 25) keyword = `${keyword} meme`
 
-    if(rand<=25) keyword = `${keyword} meme`
+    if (rand <= 75 && rand > 25) keyword = `${keyword} ilustração`
 
-    if(rand<=75 && rand >25) keyword = `${keyword} ilustração`
-
-    if(rand<=100 && rand>75) keyword = `${keyword}`
-
+    if (rand <= 100 && rand > 75) keyword = `${keyword}`
+    console.log(keyword)
     const response = await customSearch.cse.list({
         auth: googleSearchCredentials,
         cx: '37bbf366cb6164f2a',
-        q: `${keyword}`,
+        q: keyword,
         searchType: 'image',
         num: 1,
         safe: "active"

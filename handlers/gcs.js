@@ -4,7 +4,7 @@ const { file } = require('googleapis/build/src/apis/file');
 const bucketName = "audios-videomaker";
 
 const storage = new Storage({
-    keyFilename: './keys/videomaker-363718-5493f7068694.json'
+    keyFilename: './keys/gcskey.json'
 });
 
 async function uploadgcs(filepath) {
