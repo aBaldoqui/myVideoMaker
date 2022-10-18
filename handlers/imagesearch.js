@@ -18,10 +18,10 @@ function findImages(contentObj) {
             let lim = 0
             Promise.all(period.keywords.map(async (word) => {
                 lim++
-                if (lim >= Math.round(40/ arrayOfPeriods.length)) return
-                return await search(word.name, index)
+                if (lim >= Math.round(42/arrayOfPeriods.length)) return
+                return await search(word, index)
             })).then(arr => {
-                const linkOfImages = arr.map((obj) => {
+                const linkOfImages = arr.map((obj, ) => {
                     if (obj) return obj.result
                 })
                 if (arr[0]) arrayOfPeriods[arr[0].ind - 1].images = linkOfImages
@@ -35,7 +35,8 @@ function findImages(contentObj) {
 
 }
 
-async function search(keyword, ind) {
+async function search(word, ind) {
+    let keyword = word.name
     const rand = Math.random() * 100
     
     if (rand <= 25) keyword = `${keyword} meme`
@@ -62,7 +63,7 @@ async function search(keyword, ind) {
         return item.link
     })
 
-    return ({ result: imagesUrl, ind: ind })
+    return ({ result: {url:imagesUrl, startTime:word.startTime}, ind: ind, })
 }
 
 module.exports = findImages

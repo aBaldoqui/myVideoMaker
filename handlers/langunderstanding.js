@@ -1,4 +1,5 @@
 const Language = require('@google-cloud/language')
+const { ideahub } = require('googleapis/build/src/apis/ideahub')
 const state = require('./state')
 const language = new Language.LanguageServiceClient()
 
@@ -30,16 +31,22 @@ async function getKeyWords(arrayOfTxt, vidName, url) {
     function coontinuistaResolver(entitiesArray, resolve) {
         let index = 0
 
-        const continuista = arrayOfTxt.map((item) => {
-            const inputSpeech = item.alternatives[0].transcript
+        const continuista = arrayOfTxt.map((txt) => {
+            const inputSpeech = txt.alternatives[0].transcript
+            const arrOfWords = inputSpeech.split(' ')
             const result = entitiesArray[index]
             index++
 
             const keywordstofilter = result.map((item) => {
                 // console.log(item.salience)
-                if (item.type != 'NUMBER' && item.salience > 0.03) return { name: item.name, type: item.type }
-
-
+                const wordindex = arrOfWords.indexOf(item.name)
+                console.log(wordindex)
+                const wordinText = txt.alternatives[0].words[wordindex]
+                console.log(txt.alternatives[0].words[1])
+                if(wordinText ){
+                    if(wordinText.word != item.name) console.log('erro: palavras não batem', wordinText.word, item.name)
+                    if (item.type != 'NUMBER' && item.salience > 0.03) return { name: item.name, type: item.type, startTime:wordinText.startTime }
+                }
             });
 
             let keywords = keywordstofilter.filter(item => item != null)
@@ -51,7 +58,7 @@ async function getKeyWords(arrayOfTxt, vidName, url) {
             return {
                 speech: inputSpeech,
                 images: [],
-                meta: item.resultEndTime,
+                meta: txt.resultEndTime,
                 keywords: keywords
             }
 

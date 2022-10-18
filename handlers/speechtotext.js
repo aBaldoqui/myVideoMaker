@@ -19,6 +19,7 @@ async function speechconverter(gcsUri, filename) {
         audioChannelCount: 2,
         enableSeparateRecognitionPerChannel: false,
         LongRunningRecognize: true,
+        enableWordTimeOffsets: true,
         model: 'latest_long'
     }
 
