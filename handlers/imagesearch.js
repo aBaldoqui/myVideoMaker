@@ -18,7 +18,7 @@ function findImages(contentObj) {
             let lim = 0
             Promise.all(period.keywords.map(async (word) => {
                 lim++
-                if (lim >= Math.round(42/arrayOfPeriods.length)) return
+                if (lim > Math.round(42/arrayOfPeriods.length)) return
                 return await search(word, index)
             })).then(arr => {
                 const linkOfImages = arr.map((obj, ) => {
